@@ -1,0 +1,78 @@
+import { useState, useEffect } from "react";
+import { motion } from "framer-motion";
+import { Menu, X } from "lucide-react";
+
+const navLinks = ["Home", "Skills", "Education", "Projects", "LeetCode", "Contact"];
+
+const Header = () => {
+  const [scrolled, setScrolled] = useState(false);
+  const [mobileOpen, setMobileOpen] = useState(false);
+
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 20);
+    window.addEventListener("scroll", onScroll);
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+
+  const scrollTo = (id: string) => {
+    setMobileOpen(false);
+    const el = document.getElementById(id.toLowerCase());
+    if (el) el.scrollIntoView({ behavior: "smooth" });
+  };
+
+  return (
+    <motion.header
+      initial={{ y: -80 }}
+      animate={{ y: 0 }}
+      transition={{ duration: 0.5 }}
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+        scrolled ? "bg-background/80 backdrop-blur-xl border-b border-border" : "bg-transparent"
+      }`}
+    >
+      <div className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
+        <button onClick={() => scrollTo("Home")} className="text-xl font-bold text-gradient-neon" style={{ fontFamily: "'Dancing Script', cursive" }}>
+          Vijaya Kumar A
+        </button>
+
+        {/* Desktop */}
+        <nav className="hidden md:flex items-center gap-8">
+          {navLinks.map((l) => (
+            <button
+              key={l}
+              onClick={() => scrollTo(l)}
+              className="text-sm text-muted-foreground hover:text-foreground transition-colors"
+            >
+              {l}
+            </button>
+          ))}
+        </nav>
+
+        {/* Mobile toggle */}
+        <button className="md:hidden text-foreground" onClick={() => setMobileOpen(!mobileOpen)}>
+          {mobileOpen ? <X size={24} /> : <Menu size={24} />}
+        </button>
+      </div>
+
+      {/* Mobile menu */}
+      {mobileOpen && (
+        <motion.div
+          initial={{ opacity: 0, y: -10 }}
+          animate={{ opacity: 1, y: 0 }}
+          className="md:hidden bg-background/95 backdrop-blur-xl border-b border-border px-6 pb-4"
+        >
+          {navLinks.map((l) => (
+            <button
+              key={l}
+              onClick={() => scrollTo(l)}
+              className="block w-full text-left py-2 text-muted-foreground hover:text-foreground transition-colors"
+            >
+              {l}
+            </button>
+          ))}
+        </motion.div>
+      )}
+    </motion.header>
+  );
+};
+
+export default Header;
