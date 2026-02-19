@@ -1,4 +1,4 @@
-# 🤖 Vijaya Kumar Portfolio | 
+# 🤖 Vijaya Kumar Portfolio |   
 
 Welcome to my personal portfolio website! This project showcases my journey as a Mechatronics Enthusiast, merging the worlds of mechanical engineering, electronics, and software development to build intelligent systems.
 
