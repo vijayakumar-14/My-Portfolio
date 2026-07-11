@@ -1,6 +1,6 @@
 import { motion } from "framer-motion";
 
-import { Code2, PenTool, Terminal, Cpu, GitBranch } from "lucide-react";
+import { Code2, PenTool, Terminal, Cpu, GitBranch, Coffee } from "lucide-react";
 
 const skills = [
   { name: "C Programming", icon: <Code2 size={16} /> },
