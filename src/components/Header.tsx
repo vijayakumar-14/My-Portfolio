@@ -88,14 +88,6 @@ const Header = () => {
               {l}
             </button>
           ))}
-          <Link
-            to="/grade-calculator"
-            onClick={() => setMobileOpen(false)}
-            className="block w-full text-left py-2 text-primary hover:text-foreground transition-colors inline-flex items-center gap-1.5"
-          >
-            <Calculator size={14} />
-            Grade Calculator
-          </Link>
         </motion.div>
       )}
     </motion.header>
