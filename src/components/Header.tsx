@@ -1,12 +1,15 @@
 import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
-import { Menu, X } from "lucide-react";
+import { Menu, X, Calculator } from "lucide-react";
+import { Link, useLocation } from "react-router-dom";
 
 const navLinks = ["Home", "Skills", "Education", "Projects", "LeetCode", "Contact"];
 
 const Header = () => {
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
+  const location = useLocation();
+  const isHome = location.pathname === "/";
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 20);
@@ -15,10 +18,21 @@ const Header = () => {
   }, []);
 
   const scrollTo = (id: string) => {
+    if (!isHome) return;
     setMobileOpen(false);
     const el = document.getElementById(id.toLowerCase());
     if (el) el.scrollIntoView({ behavior: "smooth" });
   };
+
+  const logoLink = isHome ? (
+    <button onClick={() => scrollTo("Home")} className="text-xl font-bold text-gradient-neon" style={{ fontFamily: "'Dancing Script', cursive" }}>
+      Vijaya Kumar A
+    </button>
+  ) : (
+    <Link to="/" className="text-xl font-bold text-gradient-neon" style={{ fontFamily: "'Dancing Script', cursive" }}>
+      Vijaya Kumar A
+    </Link>
+  );
 
   return (
     <motion.header
@@ -30,13 +44,11 @@ const Header = () => {
       }`}
     >
       <div className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
-        <button onClick={() => scrollTo("Home")} className="text-xl font-bold text-gradient-neon" style={{ fontFamily: "'Dancing Script', cursive" }}>
-          Vijaya Kumar A
-        </button>
+        {logoLink}
 
         {/* Desktop */}
         <nav className="hidden md:flex items-center gap-8">
-          {navLinks.map((l) => (
+          {isHome && navLinks.map((l) => (
             <button
               key={l}
               onClick={() => scrollTo(l)}
@@ -45,6 +57,13 @@ const Header = () => {
               {l}
             </button>
           ))}
+          <Link
+            to="/grade-calculator"
+            className="text-sm text-primary hover:text-foreground transition-colors inline-flex items-center gap-1.5"
+          >
+            <Calculator size={14} />
+            Grade Calculator
+          </Link>
         </nav>
 
         {/* Mobile toggle */}
@@ -60,7 +79,7 @@ const Header = () => {
           animate={{ opacity: 1, y: 0 }}
           className="md:hidden bg-background/95 backdrop-blur-xl border-b border-border px-6 pb-4"
         >
-          {navLinks.map((l) => (
+          {isHome && navLinks.map((l) => (
             <button
               key={l}
               onClick={() => scrollTo(l)}
@@ -69,6 +88,14 @@ const Header = () => {
               {l}
             </button>
           ))}
+          <Link
+            to="/grade-calculator"
+            onClick={() => setMobileOpen(false)}
+            className="block w-full text-left py-2 text-primary hover:text-foreground transition-colors inline-flex items-center gap-1.5"
+          >
+            <Calculator size={14} />
+            Grade Calculator
+          </Link>
         </motion.div>
       )}
     </motion.header>

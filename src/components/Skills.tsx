@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { Code2, PenTool, Terminal, Cpu, GitBranch } from "lucide-react";
+import { Code2, PenTool, Terminal, Cpu, GitBranch, Coffee } from "lucide-react";
 import { ReactNode } from "react";
 
 interface Skill {
@@ -11,10 +11,11 @@ interface Skill {
 
 const skills: Skill[] = [
   { name: "C Programming", icon: <Code2 size={28} />, progress: 90 },
+  { name: "Java", icon: <Coffee size={28} />, progress: 75, badge: "Learning" },
   { name: "AutoCAD", icon: <PenTool size={28} />, progress: 80 },
   { name: "Python", icon: <Terminal size={28} />, progress: 85 },
   { name: "Arduino", icon: <Cpu size={28} />, progress: 90, badge: "Learning" },
-  { name: "Data Structures & Algorithms", icon: <GitBranch size={28} />, progress: 40, badge: "Learning" },
+  { name: "DSA in Java", icon: <GitBranch size={28} />, progress: 40, badge: "Learning" },
 ];
 
 const SkillCard = ({ skill, index }: { skill: Skill; index: number }) => (
