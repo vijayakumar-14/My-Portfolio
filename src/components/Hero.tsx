@@ -4,10 +4,11 @@ import { Code2, PenTool, Terminal, Cpu, GitBranch } from "lucide-react";
 
 const skills = [
   { name: "C Programming", icon: <Code2 size={16} /> },
+  { name: "Java", icon: <Coffee size={16} /> },
   { name: "AutoCAD", icon: <PenTool size={16} /> },
   { name: "Python", icon: <Terminal size={16} /> },
   { name: "Arduino", icon: <Cpu size={16} /> },
-  { name: "DSA • Learning...", icon: <GitBranch size={16} /> },
+  { name: "DSA in Java", icon: <GitBranch size={16} /> },
 ];
 
 const SkillsMarquee = () => {
