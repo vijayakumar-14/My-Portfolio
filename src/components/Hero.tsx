@@ -31,9 +31,33 @@ const SkillsMarquee = () => {
 };
 
 const Hero = () => {
+  const [downloading, setDownloading] = useState(false);
+
   const scrollTo = (id: string) => {
     const el = document.getElementById(id);
     if (el) el.scrollIntoView({ behavior: "smooth" });
+  };
+
+  const downloadResume = async () => {
+    try {
+      setDownloading(true);
+      const response = await fetch(resumeAsset.url);
+      if (!response.ok) throw new Error("Failed to fetch resume");
+      const blob = await response.blob();
+      const url = window.URL.createObjectURL(blob);
+      const link = document.createElement("a");
+      link.href = url;
+      link.download = "Vijaya_Kumar_1st_Yr_Resume_1.pdf";
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      window.URL.revokeObjectURL(url);
+    } catch (err) {
+      console.error("Resume download failed:", err);
+      window.open(resumeAsset.url, "_blank");
+    } finally {
+      setDownloading(false);
+    }
   };
 
   return (
