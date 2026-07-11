@@ -1,7 +1,8 @@
 import { motion } from "framer-motion";
 
-import { Code2, PenTool, Terminal, Cpu, GitBranch, Coffee, Download } from "lucide-react";
+import { Code2, PenTool, Terminal, Cpu, GitBranch, Coffee, Download, Loader2 } from "lucide-react";
 import resumeAsset from "@/assets/Vijaya_Kumar_1st_Yr_Resume_1.pdf.asset.json";
+import { useState } from "react";
 
 const skills = [
   { name: "C Programming", icon: <Code2 size={16} /> },
