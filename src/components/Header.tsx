@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
-import { Menu, X, Calculator } from "lucide-react";
+import { Menu, X } from "lucide-react";
 import { Link, useLocation } from "react-router-dom";
 
 const navLinks = ["Home", "Skills", "Education", "Projects", "LeetCode", "Contact"];
@@ -57,13 +57,6 @@ const Header = () => {
               {l}
             </button>
           ))}
-          <Link
-            to="/grade-calculator"
-            className="text-sm text-primary hover:text-foreground transition-colors inline-flex items-center gap-1.5"
-          >
-            <Calculator size={14} />
-            Grade Calculator
-          </Link>
         </nav>
 
         {/* Mobile toggle */}
