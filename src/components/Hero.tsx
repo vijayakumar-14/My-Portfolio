@@ -1,7 +1,8 @@
 import { motion } from "framer-motion";
 
-import { Code2, PenTool, Terminal, Cpu, GitBranch, Coffee, Download } from "lucide-react";
+import { Code2, PenTool, Terminal, Cpu, GitBranch, Coffee, Download, Loader2 } from "lucide-react";
 import resumeAsset from "@/assets/Vijaya_Kumar_1st_Yr_Resume_1.pdf.asset.json";
+import { useState } from "react";
 
 const skills = [
   { name: "C Programming", icon: <Code2 size={16} /> },
@@ -30,9 +31,33 @@ const SkillsMarquee = () => {
 };
 
 const Hero = () => {
+  const [downloading, setDownloading] = useState(false);
+
   const scrollTo = (id: string) => {
     const el = document.getElementById(id);
     if (el) el.scrollIntoView({ behavior: "smooth" });
+  };
+
+  const downloadResume = async () => {
+    try {
+      setDownloading(true);
+      const response = await fetch(resumeAsset.url);
+      if (!response.ok) throw new Error("Failed to fetch resume");
+      const blob = await response.blob();
+      const url = window.URL.createObjectURL(blob);
+      const link = document.createElement("a");
+      link.href = url;
+      link.download = "Vijaya_Kumar_1st_Yr_Resume_1.pdf";
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      window.URL.revokeObjectURL(url);
+    } catch (err) {
+      console.error("Resume download failed:", err);
+      window.open(resumeAsset.url, "_blank");
+    } finally {
+      setDownloading(false);
+    }
   };
 
   return (
@@ -76,14 +101,14 @@ const Hero = () => {
           transition={{ duration: 0.7, delay: 0.5 }}
           className="flex flex-wrap gap-4 justify-center"
         >
-          <a
-            href={resumeAsset.url}
-            download="Vijaya_Kumar_1st_Yr_Resume_1.pdf"
-            className="px-8 py-3 rounded-lg bg-gradient-neon text-primary-foreground font-semibold hover:opacity-90 transition-opacity glow-purple inline-flex items-center gap-2"
+          <button
+            onClick={downloadResume}
+            disabled={downloading}
+            className="px-8 py-3 rounded-lg bg-gradient-neon text-primary-foreground font-semibold hover:opacity-90 transition-opacity glow-purple inline-flex items-center gap-2 disabled:opacity-70"
           >
-            <Download size={18} />
+            {downloading ? <Loader2 size={18} className="animate-spin" /> : <Download size={18} />}
             Get Resume
-          </a>
+          </button>
           <button
             onClick={() => scrollTo("contact")}
             className="px-8 py-3 rounded-lg border border-foreground/30 text-foreground font-semibold hover:bg-foreground/5 transition-colors"
