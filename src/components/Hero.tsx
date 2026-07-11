@@ -1,7 +1,7 @@
 import { motion } from "framer-motion";
 
 import { Code2, PenTool, Terminal, Cpu, GitBranch, Coffee, Download, Loader2 } from "lucide-react";
-import resumeAsset from "@/assets/Vijaya_Kumar_Resume_1.pdf.asset.json";
+const RESUME_URL = "/Vijaya_Kumar_Resume_1.pdf";
 import { useState } from "react";
 
 const skills = [
@@ -41,7 +41,7 @@ const Hero = () => {
   const downloadResume = async () => {
     try {
       setDownloading(true);
-      const response = await fetch(resumeAsset.url);
+      const response = await fetch(RESUME_URL);
       if (!response.ok) throw new Error("Failed to fetch resume");
       const blob = await response.blob();
       const url = window.URL.createObjectURL(blob);
@@ -54,7 +54,7 @@ const Hero = () => {
       window.URL.revokeObjectURL(url);
     } catch (err) {
       console.error("Resume download failed:", err);
-      window.open(resumeAsset.url, "_blank");
+      window.open(RESUME_URL, "_blank");
     } finally {
       setDownloading(false);
     }
