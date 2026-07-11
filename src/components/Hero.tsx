@@ -101,14 +101,14 @@ const Hero = () => {
           transition={{ duration: 0.7, delay: 0.5 }}
           className="flex flex-wrap gap-4 justify-center"
         >
-          <a
-            href={resumeAsset.url}
-            download="Vijaya_Kumar_1st_Yr_Resume_1.pdf"
-            className="px-8 py-3 rounded-lg bg-gradient-neon text-primary-foreground font-semibold hover:opacity-90 transition-opacity glow-purple inline-flex items-center gap-2"
+          <button
+            onClick={downloadResume}
+            disabled={downloading}
+            className="px-8 py-3 rounded-lg bg-gradient-neon text-primary-foreground font-semibold hover:opacity-90 transition-opacity glow-purple inline-flex items-center gap-2 disabled:opacity-70"
           >
-            <Download size={18} />
+            {downloading ? <Loader2 size={18} className="animate-spin" /> : <Download size={18} />}
             Get Resume
-          </a>
+          </button>
           <button
             onClick={() => scrollTo("contact")}
             className="px-8 py-3 rounded-lg border border-foreground/30 text-foreground font-semibold hover:bg-foreground/5 transition-colors"
