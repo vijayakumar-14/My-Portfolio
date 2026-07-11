@@ -11,7 +11,7 @@ interface Skill {
 
 const skills: Skill[] = [
   { name: "C Programming", icon: <Code2 size={28} />, progress: 90 },
-  { name: "Java", icon: <Coffee size={28} />, progress: 75, badge: "Learning" },
+  { name: "Java", icon: <Coffee size={28} />, progress: 75 },
   { name: "AutoCAD", icon: <PenTool size={28} />, progress: 80 },
   { name: "Python", icon: <Terminal size={28} />, progress: 85 },
   { name: "Arduino", icon: <Cpu size={28} />, progress: 90, badge: "Learning" },
