@@ -307,7 +307,7 @@ const ExpenseModal = ({ open, onClose }: { open: boolean; onClose: () => void })
                   <ExternalLink size={16} className="text-muted-foreground shrink-0" />
                 </a>
                 <a
-                  href="https://drive.google.com/file/d/1Zw8OQ5ZQx8Zw8OQ5ZQx8Zw8OQ5ZQx8Z/view?usp=sharing"
+                  href="https://drive.google.com/file/d/1YBjXD-YHMncYbXrQ8Lyt2bcqgWKIBazx/view?usp=sharing"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="flex items-center justify-between gap-3 bg-muted hover:bg-muted/70 border border-border rounded-xl p-4 transition-colors"
