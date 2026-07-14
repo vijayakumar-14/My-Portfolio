@@ -328,8 +328,23 @@ const ExpenseModal = ({ open, onClose }: { open: boolean; onClose: () => void })
               </div>
             )}
             {tab === "photos" && (
-              <div className="text-center py-10 text-muted-foreground text-sm">
-                Photos will be added soon.
+              <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
+                {expensePhotos.map((photo, i) => (
+                  <a
+                    key={i}
+                    href={photo.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="group relative aspect-[9/19] rounded-xl overflow-hidden bg-muted border border-border hover:border-neon-purple/60 transition-colors"
+                  >
+                    <img
+                      src={photo.url}
+                      alt={`Expense Tracker screenshot ${i + 1}`}
+                      loading="lazy"
+                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                    />
+                  </a>
+                ))}
               </div>
             )}
           </div>
