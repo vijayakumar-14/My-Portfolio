@@ -2,7 +2,7 @@ import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Lock, X, Play, FileCode, LayoutGrid, Cpu, Eye, Download, Wallet, Link as LinkIcon, Image as ImageIcon, Github, ExternalLink } from "lucide-react";
 import schematicImg from "@/assets/door-lock-schematic.png";
-import expenseCover from "@/assets/expense-tracker-cover.jpeg.asset.json";
+
 
 const arduinoCode = `#include <Wire.h> 
 #include <LiquidCrystal_I2C.h>
