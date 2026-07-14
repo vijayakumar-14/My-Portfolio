@@ -379,7 +379,9 @@ const Projects = () => {
             onClick={() => setExpenseOpen(true)}
             className="bg-card border border-border rounded-xl overflow-hidden cursor-pointer card-hover group"
           >
-            <img src={expenseCover.url} alt="Monthly Expense Tracker" className="w-full h-40 object-cover object-top border-b border-border" />
+            <div className="w-full h-40 flex items-center justify-center border-b border-border bg-gradient-to-br from-muted/50 to-muted">
+              <span className="text-2xl font-normal text-foreground tracking-wide">Expense Tracker</span>
+            </div>
             <div className="p-6">
               <div className="flex items-center gap-2 mb-2">
                 <Wallet size={18} className="text-primary" />
