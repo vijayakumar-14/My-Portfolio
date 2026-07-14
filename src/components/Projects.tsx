@@ -1,7 +1,8 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Lock, X, Play, FileCode, LayoutGrid, Cpu, Eye, Download } from "lucide-react";
+import { Lock, X, Play, FileCode, LayoutGrid, Cpu, Eye, Download, Wallet, Link as LinkIcon, Image as ImageIcon, Github, ExternalLink } from "lucide-react";
 import schematicImg from "@/assets/door-lock-schematic.png";
+import expenseCover from "@/assets/expense-tracker-cover.jpeg.asset.json";
 
 const arduinoCode = `#include <Wire.h> 
 #include <LiquidCrystal_I2C.h>
@@ -95,7 +96,7 @@ void loop() {
   }
 }`;
 
-const tabs = [
+const doorTabs = [
   { id: "overview", label: "Overview", icon: <Eye size={16} /> },
   { id: "schematic", label: "Schematic", icon: <Cpu size={16} /> },
   { id: "block", label: "Block Diagram", icon: <LayoutGrid size={16} /> },
@@ -103,7 +104,7 @@ const tabs = [
   { id: "video", label: "Video", icon: <Play size={16} /> },
 ];
 
-const ProjectModal = ({ open, onClose }: { open: boolean; onClose: () => void }) => {
+const DoorLockModal = ({ open, onClose }: { open: boolean; onClose: () => void }) => {
   const [tab, setTab] = useState("overview");
 
   if (!open) return null;
@@ -124,7 +125,6 @@ const ProjectModal = ({ open, onClose }: { open: boolean; onClose: () => void })
           onClick={(e) => e.stopPropagation()}
           className="bg-card border border-border rounded-2xl w-full max-w-3xl max-h-[85vh] overflow-hidden mx-2"
         >
-          {/* Header */}
           <div className="flex items-center justify-between p-6 border-b border-border">
             <div className="flex items-center gap-3">
               <div className="p-2 rounded-lg bg-primary/10 text-primary">
@@ -137,16 +137,13 @@ const ProjectModal = ({ open, onClose }: { open: boolean; onClose: () => void })
             </button>
           </div>
 
-          {/* Tabs */}
           <div className="flex gap-1 px-6 pt-4 overflow-x-auto">
-            {tabs.map((t) => (
+            {doorTabs.map((t) => (
               <button
                 key={t.id}
                 onClick={() => setTab(t.id)}
                 className={`flex items-center gap-1.5 px-4 py-2 rounded-lg text-sm font-medium transition-all whitespace-nowrap ${
-                  tab === t.id
-                    ? "bg-primary/15 text-primary"
-                    : "text-muted-foreground hover:text-foreground hover:bg-muted"
+                  tab === t.id ? "bg-primary/15 text-primary" : "text-muted-foreground hover:text-foreground hover:bg-muted"
                 }`}
               >
                 {t.icon}
@@ -155,7 +152,6 @@ const ProjectModal = ({ open, onClose }: { open: boolean; onClose: () => void })
             ))}
           </div>
 
-          {/* Content */}
           <div className="p-6 overflow-y-auto max-h-[55vh]">
             {tab === "overview" && (
               <div className="space-y-4">
@@ -172,17 +168,8 @@ const ProjectModal = ({ open, onClose }: { open: boolean; onClose: () => void })
             )}
             {tab === "schematic" && (
               <div className="space-y-4">
-                <img
-                  src={schematicImg}
-                  alt="Door Lock System Schematic"
-                  className="w-full rounded-xl border border-border"
-                />
-                <a
-                  href="/docs/door-lock-schematic.pdf"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 text-sm text-primary hover:underline"
-                >
+                <img src={schematicImg} alt="Door Lock System Schematic" className="w-full rounded-xl border border-border" />
+                <a href="/docs/door-lock-schematic.pdf" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 text-sm text-primary hover:underline">
                   <Download size={14} />
                   Download full schematic (PDF)
                 </a>
@@ -190,17 +177,8 @@ const ProjectModal = ({ open, onClose }: { open: boolean; onClose: () => void })
             )}
             {tab === "block" && (
               <div className="space-y-4">
-                <iframe
-                  src="/docs/door-lock-block-diagram.pdf"
-                  className="w-full h-[50vh] rounded-xl border border-border"
-                  title="Block Diagram PDF"
-                />
-                <a
-                  href="/docs/door-lock-block-diagram.pdf"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 text-sm text-primary hover:underline"
-                >
+                <iframe src="/docs/door-lock-block-diagram.pdf" className="w-full h-[50vh] rounded-xl border border-border" title="Block Diagram PDF" />
+                <a href="/docs/door-lock-block-diagram.pdf" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 text-sm text-primary hover:underline">
                   <Download size={14} />
                   Download Block Diagram (PDF)
                 </a>
@@ -219,12 +197,7 @@ const ProjectModal = ({ open, onClose }: { open: boolean; onClose: () => void })
                   allow="autoplay"
                   allowFullScreen
                 />
-                <a
-                  href="https://drive.google.com/file/d/14UpA7xfl5MHjXD_YkxeZ-w9MB2h1CHnx/view?usp=sharing"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 text-sm text-primary hover:underline"
-                >
+                <a href="https://drive.google.com/file/d/14UpA7xfl5MHjXD_YkxeZ-w9MB2h1CHnx/view?usp=sharing" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 text-sm text-primary hover:underline">
                   <Play size={14} />
                   Open video in Google Drive
                 </a>
@@ -237,8 +210,128 @@ const ProjectModal = ({ open, onClose }: { open: boolean; onClose: () => void })
   );
 };
 
+const expenseTabs = [
+  { id: "overview", label: "Overview", icon: <Eye size={16} /> },
+  { id: "links", label: "Links", icon: <LinkIcon size={16} /> },
+  { id: "photos", label: "Photos", icon: <ImageIcon size={16} /> },
+];
+
+const ExpenseModal = ({ open, onClose }: { open: boolean; onClose: () => void }) => {
+  const [tab, setTab] = useState("overview");
+
+  if (!open) return null;
+
+  return (
+    <AnimatePresence>
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        exit={{ opacity: 0 }}
+        className="fixed inset-0 z-50 bg-background/80 backdrop-blur-sm flex items-center justify-center p-4"
+        onClick={onClose}
+      >
+        <motion.div
+          initial={{ scale: 0.95, opacity: 0 }}
+          animate={{ scale: 1, opacity: 1 }}
+          exit={{ scale: 0.95, opacity: 0 }}
+          onClick={(e) => e.stopPropagation()}
+          className="bg-card border border-border rounded-2xl w-full max-w-3xl max-h-[85vh] overflow-hidden mx-2"
+        >
+          <div className="flex items-center justify-between p-6 border-b border-border">
+            <div className="flex items-center gap-3">
+              <div className="p-2 rounded-lg bg-primary/10 text-primary">
+                <Wallet size={20} />
+              </div>
+              <h3 className="text-xl font-bold text-foreground">Monthly Expense Tracker</h3>
+            </div>
+            <button onClick={onClose} className="text-muted-foreground hover:text-foreground transition-colors">
+              <X size={20} />
+            </button>
+          </div>
+
+          <div className="flex gap-1 px-6 pt-4 overflow-x-auto">
+            {expenseTabs.map((t) => (
+              <button
+                key={t.id}
+                onClick={() => setTab(t.id)}
+                className={`flex items-center gap-1.5 px-4 py-2 rounded-lg text-sm font-medium transition-all whitespace-nowrap ${
+                  tab === t.id ? "bg-primary/15 text-primary" : "text-muted-foreground hover:text-foreground hover:bg-muted"
+                }`}
+              >
+                {t.icon}
+                {t.label}
+              </button>
+            ))}
+          </div>
+
+          <div className="p-6 overflow-y-auto max-h-[55vh]">
+            {tab === "overview" && (
+              <div className="space-y-4">
+                <p className="text-muted-foreground leading-relaxed">
+                  A native Android app to log, track, and export daily, weekly, and monthly expenses with
+                  smart auto-categorization and a full editable calendar history. Built with Kotlin, Jetpack
+                  Compose, and Room Database. Developed using Google AI Studio and Android Studio.
+                </p>
+                <div className="grid grid-cols-2 gap-3">
+                  {["Kotlin", "Jetpack Compose", "Room Database", "Android Studio", "Google AI Studio", "Material 3"].map((c) => (
+                    <div key={c} className="bg-muted rounded-lg p-3 text-sm text-foreground">{c}</div>
+                  ))}
+                </div>
+              </div>
+            )}
+            {tab === "links" && (
+              <div className="space-y-3">
+                <a
+                  href="https://github.com/vijayakumar-14/Expense-Tracker"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center justify-between gap-3 bg-muted hover:bg-muted/70 border border-border rounded-xl p-4 transition-colors"
+                >
+                  <div className="flex items-center gap-3">
+                    <div className="p-2 rounded-lg bg-primary/10 text-primary">
+                      <Github size={20} />
+                    </div>
+                    <div>
+                      <div className="text-sm font-semibold text-foreground">GitHub Repository</div>
+                      <div className="text-xs text-muted-foreground break-all">vijayakumar-14/Expense-Tracker</div>
+                    </div>
+                  </div>
+                  <ExternalLink size={16} className="text-muted-foreground shrink-0" />
+                </a>
+                <a
+                  href="https://drive.google.com/file/d/1Zw8OQ5ZQx8Zw8OQ5ZQx8Zw8OQ5ZQx8Z/view?usp=sharing"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center justify-between gap-3 bg-muted hover:bg-muted/70 border border-border rounded-xl p-4 transition-colors"
+                >
+                  <div className="flex items-center gap-3">
+                    <div className="p-2 rounded-lg bg-neon-green/10 text-neon-green">
+                      <Download size={20} />
+                    </div>
+                    <div>
+                      <div className="text-sm font-semibold text-foreground">App Download (APK)</div>
+                      <div className="text-xs text-muted-foreground break-all">Expense Tracker.apk — Google Drive</div>
+                    </div>
+                  </div>
+                  <ExternalLink size={16} className="text-muted-foreground shrink-0" />
+                </a>
+              </div>
+            )}
+            {tab === "photos" && (
+              <div className="text-center py-10 text-muted-foreground text-sm">
+                Photos will be added soon.
+              </div>
+            )}
+          </div>
+        </motion.div>
+      </motion.div>
+    </AnimatePresence>
+  );
+};
+
 const Projects = () => {
-  const [modalOpen, setModalOpen] = useState(false);
+  const [doorOpen, setDoorOpen] = useState(false);
+  const [expenseOpen, setExpenseOpen] = useState(false);
 
   return (
     <section id="projects" className="py-24 px-6">
@@ -257,14 +350,10 @@ const Projects = () => {
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            onClick={() => setModalOpen(true)}
+            onClick={() => setDoorOpen(true)}
             className="bg-card border border-border rounded-xl overflow-hidden cursor-pointer card-hover group"
           >
-            <img
-              src={schematicImg}
-              alt="Door Lock System"
-              className="w-full h-40 object-cover border-b border-border"
-            />
+            <img src={schematicImg} alt="Door Lock System" className="w-full h-40 object-cover border-b border-border" />
             <div className="p-6">
               <div className="flex items-center gap-2 mb-2">
                 <Lock size={18} className="text-primary" />
@@ -282,10 +371,37 @@ const Projects = () => {
               </div>
             </div>
           </motion.div>
+
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            onClick={() => setExpenseOpen(true)}
+            className="bg-card border border-border rounded-xl overflow-hidden cursor-pointer card-hover group"
+          >
+            <img src={expenseCover.url} alt="Monthly Expense Tracker" className="w-full h-40 object-cover object-top border-b border-border" />
+            <div className="p-6">
+              <div className="flex items-center gap-2 mb-2">
+                <Wallet size={18} className="text-primary" />
+                <h3 className="text-lg font-semibold text-foreground group-hover:text-primary transition-colors">
+                  Monthly Expense Tracker
+                </h3>
+              </div>
+              <p className="text-sm text-muted-foreground leading-relaxed">
+                Native Android app to log, track, and export expenses with smart auto-categorization and calendar history.
+              </p>
+              <div className="flex gap-2 mt-4 flex-wrap">
+                {["Kotlin", "Jetpack Compose", "Room DB", "Android"].map((t) => (
+                  <span key={t} className="text-xs px-2 py-0.5 rounded-full bg-muted text-muted-foreground">{t}</span>
+                ))}
+              </div>
+            </div>
+          </motion.div>
         </div>
       </div>
 
-      <ProjectModal open={modalOpen} onClose={() => setModalOpen(false)} />
+      <DoorLockModal open={doorOpen} onClose={() => setDoorOpen(false)} />
+      <ExpenseModal open={expenseOpen} onClose={() => setExpenseOpen(false)} />
     </section>
   );
 };
