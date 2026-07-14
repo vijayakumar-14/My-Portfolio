@@ -2,6 +2,16 @@ import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Lock, X, Play, FileCode, LayoutGrid, Cpu, Eye, Download, Wallet, Link as LinkIcon, Image as ImageIcon, Github, ExternalLink } from "lucide-react";
 import schematicImg from "@/assets/door-lock-schematic.png";
+import expense1 from "@/assets/expense-1.jpeg.asset.json";
+import expense2 from "@/assets/expense-2.jpeg.asset.json";
+import expense3 from "@/assets/expense-3.jpeg.asset.json";
+import expense4 from "@/assets/expense-4.jpeg.asset.json";
+import expense5 from "@/assets/expense-5.jpeg.asset.json";
+import expense6 from "@/assets/expense-6.jpeg.asset.json";
+import expense7 from "@/assets/expense-7.jpeg.asset.json";
+import expense8 from "@/assets/expense-8.jpeg.asset.json";
+
+const expensePhotos = [expense1, expense2, expense3, expense4, expense5, expense6, expense7, expense8];
 
 
 const arduinoCode = `#include <Wire.h> 
